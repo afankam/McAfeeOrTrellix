@@ -1,0 +1,61 @@
+How to manually remove Trellix Agent 5.x for Linux
+Technical Articles ID:   KB75550
+Last Modified:  2023-07-11 21:00:09 Etc/GMT
+Environment
+Trellix Agent (TA) 5.x for Linux
+Linux - all supported versions
+
+NOTE: McAfee Agent was rebranded to Trellix Agent in version 5.7.7.
+
+For all non-windows environment information, see KB51573 - Supported platforms for Trellix Agent 5.x.
+Summary
+Under certain conditions, you might have to remove Trellix Agent manually. Possible reasons include:
+A failed upgrade that leaves mismatched files and stops the removal of the agent
+Corruption of files in previously installed versions of Trellix Agent
+Conflict with third-party software
+Solution 1
+IMPORTANT: Before you remove the Trellix Agent manually (using the steps in Solution 2), run the commands below for Linux systems:
+Log on to the non-Windows system.
+Run the command below to uninstall Trellix Agent:
+
+/opt/McAfee/agent/scripts/uninstall.sh
+ 
+Use the commands below to remove individual packages.
+IMPORTANT: Run the commands below in the stated order.
+
+rpm -e MFEdx
+
+rpm -e MFEcma
+
+rpm -e MFErt
+
+For more information about these commands, see the Trellix Agent 5.7.x Installation Guide.
+
+If these steps do not remove Trellix Agent, follow the manual removal instructions in Solution 2.
+Solution 2
+Use the instructions below to manually remove Trellix Agent on a Linux system.
+
+IMPORTANT: Before you continue, make sure that you’ve removed any additional Trellix products that are on the client computer. You must not run the commands below when other Trellix products are installed.
+Run the commands below on a Linux system:
+
+rpm -e MFEdx --nodeps --noscripts
+
+rpm -e MFEcma --nodeps --noscripts
+
+rpm -e MFErt --nodeps --noscripts
+ 
+Run the commands below to remove the Debian packages:
+
+NOTE: The commands below cleanly uninstall and remove package-related database entries from the system database. No additional commands are needed.
+
+dpkg --purge mfedx
+ 
+dpkg --purge mfecma
+ 
+dpkg --purge mfert
+ 
+If the folders still exist, use the commands below to remove agent-specific folders:
+ 
+rm -rf /opt/McAfee/cma
+  
+rm -rf /etc/cma.d
